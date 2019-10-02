@@ -10,10 +10,12 @@ function useLocalStorage(key, value) {
     const [val, setVal] = React.useState(value)
 
     // check/set local storage
-    const localVal = localStorage.getItem(key)
-    console.log('localVal', localVal)
-    if (localVal) setVal(JSON.parse(localVal))
-    else localStorage.setItem(key, JSON.stringify(val))
+    React.useEffect(()=>{
+        const localVal = localStorage.getItem(key)
+        // console.log('localVal', localVal)
+        if (localVal) setVal(JSON.parse(localVal))
+        else localStorage.setItem(key, JSON.stringify(value))
+    },[key, value])
 
     // create update handler
     function updateVal(value) {
